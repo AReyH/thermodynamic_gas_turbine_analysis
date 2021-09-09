@@ -159,7 +159,7 @@ if __name__ == '__main__':
 
     T_1,f_gas,f_aire = streamlit_code()
     if f_aire > 0:
-        nth, HR, Pt, SFC = new_thermodynamic_efficiency(Tdb=T_1)
+        nth, HR, Pt, SFC = new_thermodynamic_efficiency(Tdb=T_1,f_gas=f_gas,f_aire=f_aire)
         st.markdown(f'*La eficiencia termica de la turbina es {round(nth,2)}%*')
         st.markdown(f'*El Heat Rate de la turbina es {round(HR,2)} BTU/kW*')
         st.markdown(f'*La potencia entregada por la turbina es {round(Pt,1)} MW*')
