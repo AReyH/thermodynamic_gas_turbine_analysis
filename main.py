@@ -38,7 +38,7 @@ def cp(T1, T2):
 
 
 def new_thermodynamic_efficiency(rho_aire=0.0629, rho_gas=0.056, T_comb_prom=1100, LHV=21213.67, Tdb=90, p2c=218,
-                                 f_gas=1800000):
+                                 f_gas=1800000,f_aire=760000):
     # Environmental Conditions
 
     Twb = 88
@@ -53,7 +53,7 @@ def new_thermodynamic_efficiency(rho_aire=0.0629, rho_gas=0.056, T_comb_prom=110
     T1 = -n_evap * (Tdb - Twb) / 100 + Tdb
 
     # Compressor Efficiency & Power Required
-    m_aire = rho_aire * 760000 / 60
+    m_aire = rho_aire * f_aire / 60
     gamma_a = 1.4
     gamma_g = 1.33
     nc_asumida = 0.946
@@ -114,25 +114,30 @@ def streamlit_code():
     st.markdown('')
     st.markdown('**Ingrese la temperatura de bulbo seco en `F: **')
     T_1 = st.number_input('')
-    #f = st.number_input('Ingrese flujo volumetrico del Gas en MBTU/H: ')
+    st.markdown('')
+    st.markdown('**Ingrese flujo volumetrico del Gas en MSFC/H: **')
+    f_gas = st.number_input('')
+    st.markdown('')
+    st.markdown('**Ingrese flujo volumetrico del Aire en SFCM: **')
+    f_aire = st.number_input('')
 
 
 
-    return T_1
+    return T_1,f_gas,f_aire
 
 def show_plot(nth, HR, Pt, SFC):
     Tdbs = [i for i in np.linspace(60, 100, 41)]
     nth_list = []
     HR_list = []
     Pt_list = []
-    SFC_list = []
+    #SFC_list = []
 
     for j in Tdbs:
         nth, HR, Pt, SFC = new_thermodynamic_efficiency(Tdb=j)
         nth_list.append(nth)
         HR_list.append(HR)
         Pt_list.append(Pt)
-        SFC_list.append(SFC)
+        #SFC_list.append(SFC)
 
     # create figure and axis objects with subplots()
     fig, ax = plt.subplots(figsize=(15, 10))
@@ -152,8 +157,8 @@ def show_plot(nth, HR, Pt, SFC):
 
 if __name__ == '__main__':
 
-    T_1= streamlit_code()
-    if T_1 > 0:
+    T_1,f_gas,f_aire = streamlit_code()
+    if f_aire > 0:
         nth, HR, Pt, SFC = new_thermodynamic_efficiency(Tdb=T_1)
         st.markdown(f'*La eficiencia termica de la turbina es {round(nth,2)}%*')
         st.markdown(f'*El Heat Rate de la turbina es {round(HR,2)} BTU/kW*')
