@@ -116,10 +116,10 @@ def streamlit_code():
     T_1 = st.number_input('')
     st.markdown('')
     st.markdown('**Ingrese flujo volumetrico del Gas en MSFC/H: **')
-    f_gas = st.number_input('')
+    f_gas = st.number_input(' ')
     st.markdown('')
     st.markdown('**Ingrese flujo volumetrico del Aire en SFCM: **')
-    f_aire = st.number_input('')
+    f_aire = st.number_input('   ')
 
 
 
