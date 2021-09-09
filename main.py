@@ -128,7 +128,7 @@ def streamlit_code():
 
     return T_1,f_gas,f_aire,p2c
 
-def show_plot(nth, HR, Pt, SFC):
+def show_plot(nth, HR, Pt, SFC,T_1):
     Tdbs = [i for i in np.linspace(60, 100, 41)]
     nth_list = []
     HR_list = []
@@ -156,16 +156,21 @@ def show_plot(nth, HR, Pt, SFC):
     # make a plot with different y-axis using second axis object
     ax2.plot(Tdbs, nth_list, color="blue", marker="o")
     ax2.set_ylabel("Eficiencia Térmica (%)", color="blue", fontsize=14)
+    if 60 <= T_1 <= 100:
+      plt.axvline(T_1)
+    
     st.pyplot(fig)
+    
+    
 
 if __name__ == '__main__':
 
     T_1,f_gas,f_aire,p2c = streamlit_code()
-    if f_aire > 0:
+    if p2c > 0:
         nth, HR, Pt, SFC = new_thermodynamic_efficiency(Tdb=T_1,f_gas=f_gas,f_aire=f_aire,p2c=p2c)
         st.markdown(f'*La eficiencia termica de la turbina es {round(nth,2)}%*')
         st.markdown(f'*El Heat Rate de la turbina es {round(HR,2)} BTU/kW*')
         st.markdown(f'*La potencia entregada por la turbina es {round(Pt,1)} MW*')
         #st.markdown(SFC)
 
-        show_plot(nth, HR, Pt, SFC)
+        show_plot(nth, HR, Pt, SFC,T_1)
