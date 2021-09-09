@@ -120,10 +120,13 @@ def streamlit_code():
     st.markdown('')
     st.markdown('**Ingrese flujo volumetrico del Aire en SFCM: **')
     f_aire = st.number_input('   ')
+    st.markdown('')
+    st.markdown('**Ingrese la presión de salida del compresor en psia: **')
+    p2c = st.number_input('     ')
 
 
 
-    return T_1,f_gas,f_aire
+    return T_1,f_gas,f_aire,p2c
 
 def show_plot(nth, HR, Pt, SFC):
     Tdbs = [i for i in np.linspace(60, 100, 41)]
@@ -157,9 +160,9 @@ def show_plot(nth, HR, Pt, SFC):
 
 if __name__ == '__main__':
 
-    T_1,f_gas,f_aire = streamlit_code()
+    T_1,f_gas,f_aire,p2c = streamlit_code()
     if f_aire > 0:
-        nth, HR, Pt, SFC = new_thermodynamic_efficiency(Tdb=T_1,f_gas=f_gas,f_aire=f_aire)
+        nth, HR, Pt, SFC = new_thermodynamic_efficiency(Tdb=T_1,f_gas=f_gas,f_aire=f_aire,p2c=p2c)
         st.markdown(f'*La eficiencia termica de la turbina es {round(nth,2)}%*')
         st.markdown(f'*El Heat Rate de la turbina es {round(HR,2)} BTU/kW*')
         st.markdown(f'*La potencia entregada por la turbina es {round(Pt,1)} MW*')
