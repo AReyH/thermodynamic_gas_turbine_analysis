@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import streamlit as st
-import math
+#import math
 
 
 def density(T1, T2):
@@ -44,7 +44,7 @@ def new_thermodynamic_efficiency(rho_aire=0.0629, rho_gas=0.056, T_comb_prom=110
     Twb = 88
     Wsamb = 201  # grain/lb
 
-    Hr = 100 * math.exp((Twb - Tdb) / 28.116) - 17.4935 * (Tdb - Twb) * math.exp(-Tdb / 28.116)
+    #Hr = 100 * math.exp((Twb - Tdb) / 28.116) - 17.4935 * (Tdb - Twb) * math.exp(-Tdb / 28.116)
 
     # Evaporative Cooler Performance
 
